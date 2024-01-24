@@ -54,30 +54,18 @@ public class Withdraw implements CommandExecutor {
 			return false;
 		}
 
-		int playerGoldAmount = MaterialCalculator.goldAmount(player);
-
-		if (playerGoldAmount == 0) {
-			player.sendMessage(Util.getMessage("No-Gold"));
-			return false;
-		}
-
-		if (amount > playerGoldAmount) {
-			player.sendMessage(Util.getMessage("Not-Enough-Gold"));
-			amount = playerGoldAmount;
-			isAll = true;
-		}
-
 		int money = amount * 5;
-		if(economy.getBalance(player)<money){
-            if (economy.getBalance(player) < 5) {
-                player.sendMessage(Util.getMessage("No-Money"));
+		if (economy.getBalance(player) < money){
+			if (economy.getBalance(player) < 5) {
+				player.sendMessage(Util.getMessage("No-Money"));
 				return false;
-            } else {
-                player.sendMessage(String.format(Util.getMessage("Not-Enough-Balance")));
-            }
-            money = (int) (economy.getBalance(player)-economy.getBalance(player)%5);
-			amount = money/5;
+			} else {
+				player.sendMessage(Util.getMessage("Not-Enough-Balance"));
+				money = (int) (economy.getBalance(player) - economy.getBalance(player) % 5);
+				amount = money / 5;
+			}
 		}
+		
 		economy.withdrawPlayer(player, money);
 		player.getInventory().addItem(new ItemStack(Material.GOLD_INGOT,amount));
 		player.sendMessage((isAll) ? Util.getMessage("Withdraw-All-Message") :
