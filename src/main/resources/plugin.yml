@@ -2,7 +2,9 @@ name: EcoBundle
 version: '${project.version}'
 main: org.info_0.ecobundle.EcoBundle
 api-version: '1.20'
+folia-supported: true
 author: 'info_0'
+depend: [Vault]
 commands: 
     deposit:
         permission: "eco-bundle.deposit"

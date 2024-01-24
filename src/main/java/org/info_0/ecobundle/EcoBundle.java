@@ -1,27 +1,31 @@
 package org.info_0.ecobundle;
 
-import net.milkbowl.vault.economy.Economy;
-import org.bukkit.plugin.RegisteredServiceProvider;
+import java.sql.SQLException;
+
 import org.bukkit.plugin.java.JavaPlugin;
+import org.info_0.ecobundle.Util.Database;
 import org.info_0.ecobundle.Util.Util;
 import org.info_0.ecobundle.commands.Deposit;
 import org.info_0.ecobundle.commands.Withdraw;
+import org.info_0.ecobundle.vault.VaultEconomy;
 
 public final class EcoBundle extends JavaPlugin {
-	private static Economy econ = null;
+	
+    private static VaultEconomy economy;
 	private static EcoBundle instance;
-	public static EcoBundle getInstance(){
-		return instance;
-	}
+	private static Database db;
 
     @Override
     public void onEnable() {
-		if (!setupEconomy()) {
-			getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
-			getServer().getPluginManager().disablePlugin(this);
-			return;
-		}
 		instance = this;
+		db = new Database();
+        try {
+            db.connect();
+            db.setup();
+        } catch (SQLException exception) {
+            db.report(exception);
+        }
+		economy = new VaultEconomy();
 		getCommand("deposit").setExecutor(new Deposit());
 		getCommand("withdraw").setExecutor(new Withdraw());
 		saveDefaultConfig();
@@ -30,21 +34,23 @@ public final class EcoBundle extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        try {
+            db.getConnection().close();
+        } catch (SQLException exception) {
+            db.report(exception);
+        }
     }
-	private boolean setupEconomy() {
-		if (getServer().getPluginManager().getPlugin("Vault") == null) {
-			return false;
-		}
-		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-		if (rsp == null) {
-			return false;
-		}
-		econ = rsp.getProvider();
-		return true;
+
+	public static VaultEconomy getEconomy() { 
+		return economy;
 	}
 
-	public static Economy getEconomy() {
-		return econ;
+	public static EcoBundle getInstance(){
+		return instance;
+	}
+
+
+	public static Database getDatabase() { 
+		return db;
 	}
 }
