@@ -41,7 +41,7 @@ public class Util {
 				}
 			}
 			messages.put(file,localMessages);
-			System.out.println(file.getName() + " loaded!");
+			EcoBundle.getInstance().getLogger().info(file.getName() + " loaded!");
 		}
 
 	}

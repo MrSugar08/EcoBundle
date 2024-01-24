@@ -8,7 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.info_0.ecobundle.EcoBundle;
-import org.info_0.ecobundle.Util.MaterialCalculator;
 import org.info_0.ecobundle.Util.Util;
 
 public class Withdraw implements CommandExecutor {
@@ -38,8 +37,20 @@ public class Withdraw implements CommandExecutor {
 
 		try {
 			if (strings[0].equalsIgnoreCase("all")) {
-				amount = MaterialCalculator.emptySpace(player);
-				isAll = true;
+                double playerBalance = economy.getBalance(player);
+                if (playerBalance < 5) {
+                    player.sendMessage(Util.getMessage("No-Money"));
+                    return false;
+                }
+
+                int maxGoldAmount = (int) (playerBalance / 5);
+                if (maxGoldAmount == 0) {
+                    player.sendMessage(Util.getMessage("No-Gold"));
+                    return false;
+                }
+
+                amount = maxGoldAmount;
+                isAll = true;
 			} else {
 				amount = Integer.parseInt(strings[0]);
 				isAll = false;

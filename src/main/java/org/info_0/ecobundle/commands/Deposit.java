@@ -13,6 +13,7 @@ import org.info_0.ecobundle.Util.Util;
 
 public class Deposit implements CommandExecutor {
 	private final Economy economy = EcoBundle.getEconomy();
+	
 	@Override
 	public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
 		if (!(commandSender instanceof Player)) {

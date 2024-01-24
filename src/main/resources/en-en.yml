@@ -3,6 +3,8 @@ BundleMessages:
     Withdraw-Message: "&aYou have withdrawn %s gold ingot(s) to your inventory."
     Deposit-All-Message: "&aYou have deposited all gold ingots from your inventory."
     Withdraw-All-Message: "&aYou have withdraw all gold ingots to your inventory."
+    Balance-Own-Message: "&aBalance of %s"
+    Balance-Message: "&aBalance of %p : %b"
 ErrorMessages:
     No-Permission: "&cYou do not have permission."
     Not-Player: "&cThis command only for players."
@@ -17,4 +19,7 @@ Commands-Usage:
     EcoBundle-Help-Usage: "&6The command usage is /eco-bundle help"
     Deposit-Usage: "&6The command usage is /deposit <gold-ingot-amount | all>"
     Withdraw-Usage: "&6The command usage is /withdraw <gold-ingot-amount | all>"
-    
+    Balance-Usage: "&6The command usage is /balance [player]"
+Baltop:
+  Header: "&6--- Top Balance Players ---"
+  Entry: "&a%p: &e%b"

@@ -3,7 +3,9 @@ version: '${project.version}'
 main: org.info_0.ecobundle.EcoBundle
 api-version: '1.20'
 folia-supported: true
-author: 'info_0'
+author:
+- info_0
+- MrSugar
 depend: [Vault]
 commands: 
     deposit:
@@ -14,3 +16,11 @@ commands:
         permission: "eco-bundle.withdraw"
         usage: "/withdraw <gold-amount | all>"
         description: "Withdraw golds."
+    balance:
+        permission: "eco-bundle.balance"
+        usage: "/balance [player]"
+        description: "Balance."
+    baltop:
+        permission: "eco-bundle.baltop"
+        usage: "/baltop"
+        description: "Baltop."

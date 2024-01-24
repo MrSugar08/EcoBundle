@@ -1,1 +1,3 @@
 lang: 'en-en'
+TopList:
+  MaxPlayersToShow: 5

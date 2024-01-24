@@ -5,8 +5,7 @@ import java.sql.SQLException;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.info_0.ecobundle.Util.Database;
 import org.info_0.ecobundle.Util.Util;
-import org.info_0.ecobundle.commands.Deposit;
-import org.info_0.ecobundle.commands.Withdraw;
+import org.info_0.ecobundle.commands.*;
 import org.info_0.ecobundle.vault.VaultEconomy;
 
 public final class EcoBundle extends JavaPlugin {
@@ -28,6 +27,8 @@ public final class EcoBundle extends JavaPlugin {
 		economy = new VaultEconomy();
 		getCommand("deposit").setExecutor(new Deposit());
 		getCommand("withdraw").setExecutor(new Withdraw());
+        getCommand("balance").setExecutor(new Balance());
+	getCommand("baltop").setExecutor(new Baltop());
 		saveDefaultConfig();
 		Util.loadMessages();
     }
@@ -48,7 +49,6 @@ public final class EcoBundle extends JavaPlugin {
 	public static EcoBundle getInstance(){
 		return instance;
 	}
-
 
 	public static Database getDatabase() { 
 		return db;
