@@ -32,8 +32,8 @@ public class VaultEconomy implements Economy {
 
     @Override
     public String getName() {
-        return "Kese";
-    }
+        return "EcoBundle";
+    }    
 
     @Override
     public boolean hasBankSupport() {

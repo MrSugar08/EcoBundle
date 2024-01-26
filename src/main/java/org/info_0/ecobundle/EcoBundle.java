@@ -28,7 +28,7 @@ public final class EcoBundle extends JavaPlugin {
 		getCommand("deposit").setExecutor(new Deposit());
 		getCommand("withdraw").setExecutor(new Withdraw());
         getCommand("balance").setExecutor(new Balance());
-	getCommand("baltop").setExecutor(new Baltop());
+	    getCommand("baltop").setExecutor(new Baltop());
 		saveDefaultConfig();
 		Util.loadMessages();
     }
