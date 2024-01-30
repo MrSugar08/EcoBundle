@@ -7,11 +7,11 @@ import org.bukkit.entity.Player;
 import org.info_0.ecobundle.Main;
 import org.info_0.ecobundle.Util.Util;
 
-public class EcoBundle implements CommandExecutor{
+public class EcoBundle implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        
+
         if (!(sender.hasPermission("eco-bundle.ecobundle"))) {
             sender.sendMessage(Util.getMessage("No-Permission"));
             return true;
@@ -22,11 +22,12 @@ public class EcoBundle implements CommandExecutor{
             return true;
         }
 
-        if (args[0].equalsIgnoreCase("reload")) { 
+        if (args[0].equalsIgnoreCase("reload")) {
             Util.reloadMessages();
+            return true;
         }
 
-        if (args[0].equalsIgnoreCase("eco") && args[1].equalsIgnoreCase("set")) {
+        if (args.length >= 4 && args[0].equalsIgnoreCase("eco") && args[1].equalsIgnoreCase("set")) {
             String targetName = args[2];
             double amount;
 
@@ -34,7 +35,7 @@ public class EcoBundle implements CommandExecutor{
                 amount = Double.parseDouble(args[3]);
             } catch (NumberFormatException e) {
                 sender.sendMessage(Util.getMessage("Invalid-Amount"));
-                return false;
+                return true;
             }
 
             Player target = sender.getServer().getPlayer(targetName);
@@ -44,9 +45,10 @@ public class EcoBundle implements CommandExecutor{
                 return true;
             } else {
                 sender.sendMessage(Util.getMessage("Player-Not-Online"));
-                return false;
+                return true;
             }
+        } else {
+            return true;
         }
-        return true;
     }
 }
