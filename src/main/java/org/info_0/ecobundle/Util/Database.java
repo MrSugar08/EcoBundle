@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 
-import org.info_0.ecobundle.EcoBundle;
+import org.info_0.ecobundle.Main;
 
 public class Database {
     private Connection connection;
@@ -20,13 +20,13 @@ public class Database {
             throw new IllegalStateException("Failed to load SQLite JDBC class", ex);
         }
 
-        File database = new File(EcoBundle.getInstance().getDataFolder(), "database.db");
+        File database = new File(Main.getInstance().getDataFolder(), "database.db");
 
         try {
             database.getParentFile().mkdirs();
             database.createNewFile();
         } catch (IOException e) {
-            EcoBundle.getInstance().getLogger().log(Level.SEVERE, "File write error: database.db");
+            Main.getInstance().getLogger().log(Level.SEVERE, "File write error: database.db");
         }
 
         connection = DriverManager.getConnection("jdbc:sqlite:" + database);
@@ -35,7 +35,7 @@ public class Database {
     public void setup() throws SQLException {
         try (Statement s = connection.createStatement()) {
             s.executeUpdate("CREATE TABLE IF NOT EXISTS economy (" +
-                    "`uuid` varchar(32) NOT NULL, `balance` double(1000) NOT NULL, PRIMARY KEY (`uuid`));");
+                    "`uuid` varchar(36) NOT NULL, `player_name` varchar(16) NOT NULL, `balance` double(1000) NOT NULL, PRIMARY KEY (`uuid`));");
         }
     }
 
@@ -56,6 +56,6 @@ public class Database {
     }
 
     public void report(SQLException exception) {
-        EcoBundle.getInstance().getLogger().log(Level.SEVERE, "Unhandled exception: " + exception.getMessage(), exception);
+        Main.getInstance().getLogger().log(Level.SEVERE, "Unhandled exception: " + exception.getMessage(), exception);
     }
 }

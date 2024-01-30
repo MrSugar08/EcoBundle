@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 import org.bukkit.OfflinePlayer;
-import org.info_0.ecobundle.EcoBundle;
+import org.info_0.ecobundle.Main;
 import org.info_0.ecobundle.Util.Database;
 import org.info_0.ecobundle.Util.PlayerUtil;
 
@@ -22,8 +22,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class VaultEconomy implements Economy {
     private static final EconomyResponse NOT_IMPLEMENTED = new EconomyResponse(0, 0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Not implemented");
-    private final EcoBundle plugin = EcoBundle.getInstance();
-    private final Database db = EcoBundle.getDatabase();
+    private final Main plugin = Main.getInstance();
+    private final Database db = Main.getDatabase();
     
     @Override
     public boolean isEnabled() {
@@ -87,7 +87,6 @@ public class VaultEconomy implements Economy {
         } catch (SQLException exception) {
             db.report(exception);
         }
-
 
         return false;
     }
@@ -305,10 +304,11 @@ public class VaultEconomy implements Economy {
 
         try (PreparedStatement statement = this
                 .db.getConnection()
-                .prepareStatement("INSERT OR IGNORE INTO economy VALUES (?, ?)")
+                .prepareStatement("INSERT OR IGNORE INTO economy (uuid, player_name, balance) VALUES (?, ?, ?)")
         ) {
             statement.setString(1, getUUID(player));
-            statement.setDouble(2, 0);
+            statement.setString(2, player);
+            statement.setDouble(3, 0);
             return statement.executeUpdate() > 0;
         } catch (SQLException exception) {
             db.report(exception);
@@ -320,10 +320,11 @@ public class VaultEconomy implements Economy {
     public boolean createPlayerAccount(OfflinePlayer offlinePlayer) {
         try (PreparedStatement statement = this
                 .db.getConnection()
-                .prepareStatement("INSERT OR IGNORE INTO economy VALUES (?, ?)")
+                .prepareStatement("INSERT OR IGNORE INTO economy (uuid, player_name, balance) VALUES (?, ?, ?)")
         ) {
             statement.setString(1, offlinePlayer.getUniqueId().toString());
-            statement.setDouble(2, 0);
+            statement.setString(2, offlinePlayer.getName());
+            statement.setDouble(3, 0);
             return statement.executeUpdate() > 0;
         } catch (SQLException exception) {
             db.report(exception);

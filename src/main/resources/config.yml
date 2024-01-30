@@ -1,3 +1,4 @@
 lang: 'en-en'
 TopList:
   MaxPlayersToShow: 5
+gold_amount: 5

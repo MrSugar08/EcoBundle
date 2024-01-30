@@ -1,26 +1,38 @@
 name: EcoBundle
 version: '${project.version}'
-main: org.info_0.ecobundle.EcoBundle
+main: org.info_0.ecobundle.Main
 api-version: '1.20'
-folia-supported: true
 author:
 - info_0
 - MrSugar
 depend: [Vault]
+folia-supported: true
 commands: 
     deposit:
         permission: "eco-bundle.deposit"
         usage: "/deposit <gold-amount | all>"
         description: "Deposit golds."
+        aliases: "yatır"
     withdraw:
         permission: "eco-bundle.withdraw"
         usage: "/withdraw <gold-amount | all>"
         description: "Withdraw golds."
+        aliases: "çek"
     balance:
         permission: "eco-bundle.balance"
         usage: "/balance [player]"
         description: "Balance."
+        aliases: "bal"
     baltop:
         permission: "eco-bundle.baltop"
         usage: "/baltop"
         description: "Baltop."
+        aliases: "balancetop"
+    pay:
+        permission: "eco-bundle.pay"
+        usage: "/pay <target> <amount>"
+        description: "Pay"
+        aliases: "gönder"
+    ecobundle:
+        permission: "eco-bundle.ecobundle"
+        description: "Ecobundle"

@@ -6,11 +6,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.info_0.ecobundle.EcoBundle;
+import org.info_0.ecobundle.Main;
 import org.info_0.ecobundle.Util.Util;
 
 public class Balance implements CommandExecutor {
-    private final Economy economy = EcoBundle.getEconomy();
+    private final Economy economy = Main.getEconomy();
     
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

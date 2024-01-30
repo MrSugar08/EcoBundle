@@ -7,12 +7,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.info_0.ecobundle.EcoBundle;
+import org.info_0.ecobundle.Main;
 import org.info_0.ecobundle.Util.MaterialCalculator;
 import org.info_0.ecobundle.Util.Util;
 
 public class Deposit implements CommandExecutor {
-	private final Economy economy = EcoBundle.getEconomy();
+	private final Economy economy = Main.getEconomy();
 	
 	@Override
 	public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -67,7 +67,7 @@ public class Deposit implements CommandExecutor {
 			isAll = true;
 		}
 
-		int money = amount * 5;
+		int money = amount * Main.getInstance().getConfig().getInt("gold_amount");
 		economy.depositPlayer(player, money);
 		player.getInventory().removeItem(new ItemStack(Material.GOLD_INGOT,amount));
 		player.sendMessage((isAll) ? Util.getMessage("Deposit-All-Message") :

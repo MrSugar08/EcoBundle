@@ -7,11 +7,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.info_0.ecobundle.EcoBundle;
+import org.info_0.ecobundle.Main;
 import org.info_0.ecobundle.Util.Util;
 
 public class Withdraw implements CommandExecutor {
-	private final Economy economy = EcoBundle.getEconomy();
+	private final Economy economy = Main.getEconomy();
 
 	@Override
 	public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -38,12 +38,12 @@ public class Withdraw implements CommandExecutor {
 		try {
 			if (strings[0].equalsIgnoreCase("all")) {
                 double playerBalance = economy.getBalance(player);
-                if (playerBalance < 5) {
+                if (playerBalance < Main.getInstance().getConfig().getInt("gold_amount")) {
                     player.sendMessage(Util.getMessage("No-Money"));
                     return false;
                 }
 
-                int maxGoldAmount = (int) (playerBalance / 5);
+                int maxGoldAmount = (int) (playerBalance / Main.getInstance().getConfig().getInt("gold_amount"));
                 if (maxGoldAmount == 0) {
                     player.sendMessage(Util.getMessage("No-Gold"));
                     return false;
@@ -65,15 +65,15 @@ public class Withdraw implements CommandExecutor {
 			return false;
 		}
 
-		int money = amount * 5;
+		int money = amount * Main.getInstance().getConfig().getInt("gold_amount");;
 		if (economy.getBalance(player) < money){
 			if (economy.getBalance(player) < 5) {
 				player.sendMessage(Util.getMessage("No-Money"));
 				return false;
 			} else {
 				player.sendMessage(Util.getMessage("Not-Enough-Balance"));
-				money = (int) (economy.getBalance(player) - economy.getBalance(player) % 5);
-				amount = money / 5;
+				money = (int) (economy.getBalance(player) - economy.getBalance(player) % Main.getInstance().getConfig().getInt("gold_amount"));
+				amount = money / Main.getInstance().getConfig().getInt("gold_amount");;
 			}
 		}
 		
