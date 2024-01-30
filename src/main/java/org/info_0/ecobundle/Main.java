@@ -54,7 +54,6 @@ public final class Main extends JavaPlugin {
         economy = new VaultEconomy();
         ServicesManager sm = this.getServer().getServicesManager();
         sm.register(Economy.class, economy, this, ServicePriority.Highest);
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         return true;
     }
 
