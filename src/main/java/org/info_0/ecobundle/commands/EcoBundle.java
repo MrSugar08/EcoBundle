@@ -4,6 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.info_0.ecobundle.Main;
 import org.info_0.ecobundle.Util.Util;
 
 public class EcoBundle implements CommandExecutor{
@@ -39,6 +40,7 @@ public class EcoBundle implements CommandExecutor{
             Player target = sender.getServer().getPlayer(targetName);
             if (target != null) {
                 sender.sendMessage(Util.getMessage("Eco-Set-Success").replace("%p", target.getName()).replace("%b", String.valueOf(amount)));
+                Main.getEconomy().setBalance(target, amount);
                 return true;
             } else {
                 sender.sendMessage(Util.getMessage("Player-Not-Online"));

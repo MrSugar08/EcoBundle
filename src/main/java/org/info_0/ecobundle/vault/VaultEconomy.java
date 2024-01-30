@@ -304,7 +304,7 @@ public class VaultEconomy implements Economy {
 
         try (PreparedStatement statement = this
                 .db.getConnection()
-                .prepareStatement("INSERT OR IGNORE INTO economy (uuid, player_name, balance) VALUES (?, ?, ?)")
+                .prepareStatement("INSERT IGNORE INTO economy (uuid, player_name, balance) VALUES (?, ?, ?)")
         ) {
             statement.setString(1, getUUID(player));
             statement.setString(2, player);
@@ -320,7 +320,7 @@ public class VaultEconomy implements Economy {
     public boolean createPlayerAccount(OfflinePlayer offlinePlayer) {
         try (PreparedStatement statement = this
                 .db.getConnection()
-                .prepareStatement("INSERT OR IGNORE INTO economy (uuid, player_name, balance) VALUES (?, ?, ?)")
+                .prepareStatement("INSERT IGNORE INTO economy (uuid, player_name, balance) VALUES (?, ?, ?)")
         ) {
             statement.setString(1, offlinePlayer.getUniqueId().toString());
             statement.setString(2, offlinePlayer.getName());
@@ -387,5 +387,4 @@ public class VaultEconomy implements Economy {
     public String getUUID(String player) {
         return UUID.nameUUIDFromBytes(("OfflinePlayer:" + player).getBytes(UTF_8)).toString();
     }
-
 }
