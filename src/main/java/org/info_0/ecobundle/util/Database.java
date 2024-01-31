@@ -1,4 +1,4 @@
-package org.info_0.ecobundle.Util;
+package org.info_0.ecobundle.util;
 
 import java.io.File;
 import java.io.IOException;

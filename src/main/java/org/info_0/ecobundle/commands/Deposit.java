@@ -8,8 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.info_0.ecobundle.Main;
-import org.info_0.ecobundle.Util.MaterialCalculator;
-import org.info_0.ecobundle.Util.Util;
+import org.info_0.ecobundle.util.MaterialCalculator;
+import org.info_0.ecobundle.util.Util;
 
 public class Deposit implements CommandExecutor {
 	private final Economy economy = Main.getEconomy();

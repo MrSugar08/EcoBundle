@@ -12,8 +12,8 @@ import java.util.UUID;
 
 import org.bukkit.OfflinePlayer;
 import org.info_0.ecobundle.Main;
-import org.info_0.ecobundle.Util.Database;
-import org.info_0.ecobundle.Util.PlayerUtil;
+import org.info_0.ecobundle.util.Database;
+import org.info_0.ecobundle.util.PlayerUtil;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;

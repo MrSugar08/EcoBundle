@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.info_0.ecobundle.Main;
-import org.info_0.ecobundle.Util.Util;
+import org.info_0.ecobundle.util.Util;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -1,4 +1,4 @@
-package org.info_0.ecobundle.Util;
+package org.info_0.ecobundle.util;
 
 import org.bukkit.OfflinePlayer;
 import org.info_0.ecobundle.Main;

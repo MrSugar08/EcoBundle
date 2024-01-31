@@ -2,13 +2,12 @@ package org.info_0.ecobundle;
 
 import java.sql.SQLException;
 
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.info_0.ecobundle.Util.Database;
-import org.info_0.ecobundle.Util.Util;
 import org.info_0.ecobundle.commands.*;
+import org.info_0.ecobundle.util.Database;
+import org.info_0.ecobundle.util.Util;
 import org.info_0.ecobundle.vault.VaultEconomy;
 
 import net.milkbowl.vault.economy.Economy;
@@ -29,7 +28,7 @@ public final class Main extends JavaPlugin {
         } catch (SQLException exception) {
             db.report(exception);
         }
-		registerEconomy();
+        registerEconomy();
         getCommand("deposit").setExecutor(new Deposit());
 		getCommand("withdraw").setExecutor(new Withdraw());
         getCommand("balance").setExecutor(new Balance());
@@ -51,10 +50,16 @@ public final class Main extends JavaPlugin {
     }
 
     private boolean registerEconomy() {
-        economy = new VaultEconomy();
-        ServicesManager sm = this.getServer().getServicesManager();
-        sm.register(Economy.class, economy, this, ServicePriority.Highest);
-        return true;
+        if (this.getServer().getPluginManager().getPlugin("Vault") != null) {
+            economy = new VaultEconomy();
+            ServicesManager sm = this.getServer().getServicesManager();
+            sm.register(Economy.class, economy, this, ServicePriority.Highest);
+            return true;
+        } else {
+            getServer().getPluginManager().disablePlugin(this);
+            instance.getLogger().warning("Vault Economy not found disabling plugin!");
+            return false;
+        }
     }
 
 	public static VaultEconomy getEconomy() { 
