@@ -6,7 +6,10 @@ author:
 - info_0
 - MrSugar
 depend: [Vault]
+loadbefore: [Towny]
+load: STARTUP
 folia-supported: true
+
 commands: 
     deposit:
         permission: "eco-bundle.deposit"

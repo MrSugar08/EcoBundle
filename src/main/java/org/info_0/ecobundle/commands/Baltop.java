@@ -18,10 +18,11 @@ public class Baltop implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         int maxPlayersToShow = Main.getInstance().getConfig().getInt("TopList.MaxPlayersToShow", 5);
-
-        if (args.length > 0) {
+		int startIndex = 0;
+		
+        if (args.length > 0 && Integer.parseInt(args[0]) != 0) {
             try {
-                maxPlayersToShow = Integer.parseInt(args[0]);
+                startIndex = (Integer.parseInt(args[0])-1)*maxPlayersToShow;
             } catch (NumberFormatException e) {
                 sender.sendMessage(Util.getMessage("Baltop-Usage"));
                 return true;
@@ -33,7 +34,7 @@ public class Baltop implements CommandExecutor {
             Connection connection = Main.getDatabase().getConnection();
             Statement statement = connection.createStatement();
             
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM economy ORDER BY balance DESC");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM economy WHERE player_name NOT LIKE 'nation-%' AND player_name NOT LIKE 'town-%' AND player_name NOT LIKE 'towny-%' ORDER BY balance DESC");
 
             while (resultSet.next()) {
                 String playerName = resultSet.getString("player_name");
@@ -62,7 +63,7 @@ public class Baltop implements CommandExecutor {
         }
 
         List<String> topList = new ArrayList<>();
-        for (int i = 0; i < displayCount; i++) {
+        for (int i = startIndex; i < displayCount; i++) {
             Map.Entry<String, Double> entry = sortedBalances.get(i);
             String playerName = entry.getKey();
             double balance = entry.getValue();
