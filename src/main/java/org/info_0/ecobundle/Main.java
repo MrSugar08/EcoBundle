@@ -7,6 +7,7 @@ import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.info_0.ecobundle.commands.*;
 import org.info_0.ecobundle.util.Database;
+import org.info_0.ecobundle.util.UpdateChecker;
 import org.info_0.ecobundle.util.Util;
 import org.info_0.ecobundle.vault.VaultEconomy;
 
@@ -28,6 +29,8 @@ public final class Main extends JavaPlugin {
         } catch (SQLException exception) {
             db.report(exception);
         }
+        UpdateChecker.check(this);
+        UpdateChecker.sendToConsole(this);
         registerEconomy();
         getCommand("deposit").setExecutor(new Deposit());
 		getCommand("withdraw").setExecutor(new Withdraw());

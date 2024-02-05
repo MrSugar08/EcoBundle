@@ -37,5 +37,4 @@ commands:
         description: "Pay"
         aliases: "gönder"
     ecobundle:
-        permission: "eco-bundle.ecobundle"
         description: "Ecobundle"
